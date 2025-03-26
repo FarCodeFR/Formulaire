@@ -2,7 +2,7 @@ create table user (
   id int unsigned primary key auto_increment not null,
   email varchar(100) not null unique,
   pseudo varchar(30) null unique,
-  password varchar(50) not null
+  password varchar(200) not null
 );
 
 create table item (

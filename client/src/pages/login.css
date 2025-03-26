@@ -1,0 +1,10 @@
+.register-button {
+  display: flex;
+  text-decoration: none;
+  width: 50%;
+  margin: 0 auto;
+  & button {
+    width: 150px;
+    height: 30px;
+  }
+}

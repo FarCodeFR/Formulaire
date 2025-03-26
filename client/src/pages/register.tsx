@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./register.css";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Register() {
   const [user, setUser] = useState({
@@ -13,8 +13,10 @@ function Register() {
 
   const [values, setValue] = useState({
     password: "",
+    passwordconfirme: "",
     showPassword: false,
   });
+
   const handleClickShowPassword = () => {
     setValue({
       ...values,
@@ -24,7 +26,7 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     const emailRegex = /^\S+@\S+\.\S+$/;
@@ -44,7 +46,7 @@ function Register() {
     } else if (password !== passwordconfirme) {
       toast.error("Le mots de passe ne correspond pas");
     } else {
-      const response = await fetch(`${import.meta.env.VIT_API_URL}/api/user`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -70,6 +72,7 @@ function Register() {
   };
   return (
     <form onSubmit={handleSubmit}>
+      <h1>Register</h1>
       <label htmlFor="email">Email</label>
       <input
         onChange={handleChange}
@@ -86,10 +89,17 @@ function Register() {
         required
         placeholder="test2"
       />
-      <label htmlFor="password">Mots de passe</label>
-      <button type="button" onClick={handleClickShowPassword}>
-        <img src="public/images/oeil.png" alt="" />
-      </button>
+      <label htmlFor="password">
+        Mots de passe{" "}
+        <button
+          className="show-password"
+          type="button"
+          onClick={handleClickShowPassword}
+          style={{ backgroundColor: values.showPassword ? "green" : "red" }}
+        >
+          <img src="public/images/oeil.png" alt="" />
+        </button>
+      </label>
       <input
         onChange={handleChange}
         type={values.showPassword ? "text" : "password"}
@@ -103,12 +113,15 @@ function Register() {
       </label>
       <input
         onChange={handleChange}
-        type="password"
+        type={values.showPassword ? "text" : "password"}
         name="passwordconfirme"
         placeholder="*****"
         required
       />
-      <button type="submit">S'inscrire</button>
+      <button type="submit">Register</button>
+      <NavLink className="register-button" to="/login">
+        <button type="button">Login</button>
+      </NavLink>
     </form>
   );
 }
