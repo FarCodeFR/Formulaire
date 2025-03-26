@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  width: 400px;
+  margin: 10% auto;
+
+  & input {
+    height: 35px;
+    border-radius: 6px;
+    width: 20em;
+    padding: 10px;
+  }
+  & button {
+    cursor: pointer;
+    width: 200px;
+    margin: 5% 5% 5% 8%;
+    height: 35px;
+    border-radius: 10px;
+  }
+}
